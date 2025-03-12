@@ -88,6 +88,23 @@ spec:
             - name: PGVECTOR_COLLECTION_NAME
               value: {{ .Values.global.db.index }}
         {{- end }}
+        {{- if eq .Values.global.db.type "SQLSERVER" }}
+            - name: DB_TYPE
+              value: SQLSERVER
+            - name: SQLSERVER_HOST
+              value: rag-llm-mssql-latest
+            - name: SQLSERVER_PORT
+              value: "1433"
+            - name: SQLSERVER_USER
+              value: sa
+            - name: SQLSERVER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mssql-secret
+                  key: sa_password
+            - name: SQLSERVER_TABLE
+              value: test
+        {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
