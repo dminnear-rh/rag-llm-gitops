@@ -46,44 +46,58 @@ spec:
         - name: REDIS_SCHEMA
           value: redis_schema.yaml
       {{- end }}
-     {{- if eq .Values.global.db.type "EDB" }}
+      {{- if eq .Values.global.db.type "EDB" }}
+          - name: DB_TYPE
+            value: "PGVECTOR"
+          - name: DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: vectordb-app
+                key: username
+          - name: PORT
+            valueFrom:
+              secretKeyRef:
+                name: vectordb-app
+                key: port
+          - name: DB_PORT
+            valueFrom:
+              secretKeyRef:
+                name: vectordb-app
+                key: port
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: vectordb-app
+                key: dbname
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: vectordb-app
+                key: host
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: vectordb-app
+                key: password
+          - name: PGVECTOR_URL
+            value: 'postgresql+psycopg://$(DB_USERNAME):$(DB_PASS)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)'
+          - name: PGVECTOR_COLLECTION_NAME
+            value: {{ .Values.global.db.index }}
+          {{- end }}
+      {{- if eq .Values.global.db.type "SQLSERVER" }}
         - name: DB_TYPE
-          value: "PGVECTOR"
-        - name: DB_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: vectordb-app
-              key: username
-        - name: PORT
-          valueFrom:
-            secretKeyRef:
-              name: vectordb-app
-              key: port
-        - name: DB_PORT
-          valueFrom:
-            secretKeyRef:
-              name: vectordb-app
-              key: port
-        - name: DB_NAME
-          valueFrom:
-            secretKeyRef:
-              name: vectordb-app
-              key: dbname
-        - name: DB_HOST
-          valueFrom:
-            secretKeyRef:
-              name: vectordb-app
-              key: host
-        - name: DB_PASS
-          valueFrom:
-            secretKeyRef:
-              name: vectordb-app
-              key: password
-        - name: PGVECTOR_URL
-          value: 'postgresql+psycopg://$(DB_USERNAME):$(DB_PASS)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)'
-        - name: PGVECTOR_COLLECTION_NAME
-          value: {{ .Values.global.db.index }}
-        {{- end }}
+          value: "SQLSERVER"
+        - name: SQLSERVER_HOST
+          value: ""
+        - name: SQLSERVER_PORT
+          value: ""
+        - name: SQLSERVER_USER
+          value: ""
+        - name: SQLSERVER_PASSWORD
+          value: ""
+        - name: SQLSERVER_TABLE
+          value: ""
+      {{- end }}
         command: ["/usr/bin/bash", "/app/entrypoint.sh"]
         {{- if .Values.populateDbJob.args }}
         args: {{ .Values.populateDbJob.args }}
