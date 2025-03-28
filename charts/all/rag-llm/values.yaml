@@ -156,8 +156,8 @@ route:
 populateDbJob:
   ## Job image
   image:
-    repository: "quay.io/ecosystem-appeng/embeddingjob"
-    tag: "0.0.4"
+    repository: quay.io/repository/dminnear/db-embedding-job
+    tag: latest
     pullPolicy: IfNotPresent
 
   command: ["/usr/bin/bash", "/app/entrypoint.sh"]
@@ -196,7 +196,7 @@ populateDbJob:
   #    memory: 500Mi
 
   securityContext:
-    runAsUser: 
+    runAsUser:
     runAsGroup:
     fsGroup:
 
@@ -205,7 +205,7 @@ populateDbJob:
       name: cache-volume
     - mountPath: /docs/
       name: doc-volume
-  
+
   volumes:
     - name: cache-volume
       emptyDir:

@@ -38,7 +38,7 @@ containerSecurityContext:
       - NET_BIND_SERVICE
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 1433
 
 pvc:

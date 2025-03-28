@@ -86,17 +86,20 @@ spec:
           {{- end }}
       {{- if eq .Values.global.db.type "SQLSERVER" }}
         - name: DB_TYPE
-          value: "SQLSERVER"
+          value: SQLSERVER
         - name: SQLSERVER_HOST
-          value: ""
+          value: mssql-latest
         - name: SQLSERVER_PORT
-          value: ""
+          value: 1433
         - name: SQLSERVER_USER
-          value: ""
+          value: sa
         - name: SQLSERVER_PASSWORD
-          value: ""
+          valueFrom:
+            secretKeyRef:
+              name: mssql-secret
+              key: sa_password
         - name: SQLSERVER_TABLE
-          value: ""
+          value: test
       {{- end }}
         command: ["/usr/bin/bash", "/app/entrypoint.sh"]
         {{- if .Values.populateDbJob.args }}
