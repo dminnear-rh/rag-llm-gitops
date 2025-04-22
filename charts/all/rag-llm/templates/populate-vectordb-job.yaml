@@ -31,9 +31,9 @@ spec:
         - name: LOG_LEVEL
           value: {{ .Values.populateDbJob.logLevel }}
         - name: REPO_SOURCES
-          value: {{ .Values.populateDbJob.repoSources | toJson }}
+          value: {{ .Values.populateDbJob.repoSources | toJson | quote }}
         - name: WEB_SOURCES
-          value: {{ .Values.populateDbJob.webSources | toJson }}
+          value: {{ .Values.populateDbJob.webSources | toJson | quote }}
         - name: CHUNK_SIZE
           values: {{ .Values.populateDbJob.chunking.size | quote }}
         - name: CHUNK_OVERLAP
