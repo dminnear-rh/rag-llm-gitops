@@ -35,9 +35,9 @@ spec:
         - name: WEB_SOURCES
           value: {{ .Values.populateDbJob.webSources | toJson }}
         - name: CHUNK_SIZE
-          values: {{ .Values.populateDbJob.chunking.size }}
+          values: {{ .Values.populateDbJob.chunking.size | quote }}
         - name: CHUNK_OVERLAP
-          values: {{ .Values.populateDbJob.chunking.overlap }}
+          values: {{ .Values.populateDbJob.chunking.overlap | quote }}
         - name: EMBEDDING_MODEL
           values: {{ .Values.populateDbJob.embeddingModel }}
       {{- if eq .Values.global.db.type "REDIS" }}
