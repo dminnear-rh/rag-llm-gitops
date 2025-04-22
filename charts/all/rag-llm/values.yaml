@@ -161,20 +161,35 @@ route:
 populateDbJob:
   ## Job image
   image:
-    repository: quay.io/dminnear/db-embedding-job
-    tag: mssql-pip
+    repository: quay.io/dminnear/vector-embedder
+    tag: latest
     pullPolicy: Always
-
-  ## Define env
-  # env:
 
   ## Job configurations
   backoffLimit: 10
   restartPolicy: Never
 
-  doc_git_repo: https://github.com/RHEcosystemAppEng/llm-on-openshift.git
-  doc_location: examples/notebooks/langchain/rhods-doc
-  doc_dir: /docs
+  # Environment overrides
+  tempDir: /docs
+  logLevel: info
+  repoSources:
+    - repo: https://github.com/RHEcosystemAppEng/llm-on-openshift.git
+      globs:
+        - examples/notebooks/langchain/rhods-doc/*.pdf
+  webSources:
+    - https://ai-on-openshift.io/getting-started/openshift/
+    - https://ai-on-openshift.io/getting-started/opendatahub/
+    - https://ai-on-openshift.io/getting-started/openshift-ai/
+    - https://ai-on-openshift.io/odh-rhoai/configuration/
+    - https://ai-on-openshift.io/odh-rhoai/custom-notebooks/
+    - https://ai-on-openshift.io/odh-rhoai/nvidia-gpus/
+    - https://ai-on-openshift.io/odh-rhoai/custom-runtime-triton/
+    - https://ai-on-openshift.io/odh-rhoai/openshift-group-management/
+    - https://ai-on-openshift.io/tools-and-applications/minio/minio/
+  chunking:
+    size: 1024
+    overlap: 40
+  embeddingModel: sentence-transformers/all-mpnet-base-v2
 
 
   # By default, fullname uses '{{ .Release.Name }}-{{ .Chart.Name }}'. This

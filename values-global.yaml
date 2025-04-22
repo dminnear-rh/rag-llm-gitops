@@ -5,11 +5,14 @@ global:
     useCSV: false
     syncPolicy: Automatic
     installPlanApproval: Automatic
-# Possible value for db.type = [REDIS, EDB]
+  # Possible values for RAG vector DB db.type:
+  #   REDIS     -> Redis (RediSearch)
+  #   EDB       -> PGVector (PostgreSQL)
+  #   SQLSERVER -> MS SQL Server (tech preview)
   db:
     index: docs
-    type: SQLSERVER
-# Add for model ID
+    type: REDIS
+  # Add for model ID
   model:
       modelId: ibm-granite/granite-3.1-8b-instruct
 main:

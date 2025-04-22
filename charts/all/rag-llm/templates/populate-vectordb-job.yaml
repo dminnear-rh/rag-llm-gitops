@@ -26,16 +26,20 @@ spec:
         imagePullPolicy: {{ .Values.populateDbJob.image.pullPolicy }}
         name: populate-vectordb
         env:
-        - name: TRANSFORMERS_CACHE
-          value: '/cache/.cache'
-        - name: SENTENCE_TRANSFORMERS_HOME
-          value: '/cache/.cache'
-        - name: DOC_GIT_REPO
-          value: {{ .Values.populateDbJob.doc_git_repo | quote }}
-        - name: DOC_LOCATION
-          value:  {{ .Values.populateDbJob.doc_location | quote }}
         - name: TEMP_DIR
-          value: {{ .Values.populateDbJob.doc_dir | quote }}
+          value: {{ .Values.populateDbJob.tempDir }}
+        - name: LOG_LEVEL
+          value: {{ .Values.populateDbJob.logLevel }}
+        - name: REPO_SOURCES
+          value: {{ .Values.populateDbJob.repoSources | toJson }}
+        - name: WEB_SOURCES
+          value: {{ .Values.populateDbJob.webSources | toJson }}
+        - name: CHUNK_SIZE
+          values: {{ .Values.populateDbJob.chunking.size }}
+        - name: CHUNK_OVERLAP
+          values: {{ .Values.populateDbJob.chunking.overlap }}
+        - name: EMBEDDING_MODEL
+          values: {{ .Values.populateDbJob.embeddingModel }}
       {{- if eq .Values.global.db.type "REDIS" }}
         - name: DB_TYPE
           value: "REDIS"
