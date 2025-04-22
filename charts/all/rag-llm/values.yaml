@@ -69,7 +69,7 @@ resources:
 
 livenessProbe:
   httpGet:
-    path: /queue/status
+    path: /
     port: http
     scheme: HTTP
   timeoutSeconds: 8
@@ -79,7 +79,7 @@ livenessProbe:
 
 readinessProbe:
   httpGet:
-    path: /queue/status
+    path: /
     port: http
     scheme: HTTP
   timeoutSeconds: 5
@@ -89,7 +89,7 @@ readinessProbe:
 
 startupProbe:
   httpGet:
-    path: /queue/status
+    path: /
     port: http
     scheme: HTTP
   timeoutSeconds: 1
