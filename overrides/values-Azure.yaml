@@ -3,3 +3,4 @@ clusterGroup:
     aso:
       name: azure-service-operator
       channel: stable
+      source: community-operators
