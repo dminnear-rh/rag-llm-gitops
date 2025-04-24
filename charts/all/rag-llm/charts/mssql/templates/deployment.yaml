@@ -1,3 +1,4 @@
+{{- if eq .Values.global.db.type "SQLSERVER" }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -70,7 +71,8 @@ spec:
           claimName: mssql-log
        - name: mssqltemp
          persistentVolumeClaim:
-          claimName: mssql-temp          
+          claimName: mssql-temp
        - name: mssql-config-volume
          configMap:
           name: mssql-config
+{{- end }}

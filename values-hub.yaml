@@ -59,6 +59,9 @@ clusterGroup:
     - gpu-config
     - openshift-ai
 
+  sharedValueFiles:
+    - '/overrides/values-{{ $.Values.global.clusterPlatform }}.yaml'
+
   applications:
     vault:
       name: vault

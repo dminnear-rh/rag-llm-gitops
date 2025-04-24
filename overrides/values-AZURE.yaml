@@ -1,0 +1,4 @@
+clusterGroup:
+  subscriptions:
+    aso:
+      name: azure-service-operator

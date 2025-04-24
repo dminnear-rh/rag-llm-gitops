@@ -9,9 +9,10 @@ global:
   #   REDIS     -> Redis (RediSearch)
   #   EDB       -> PGVector (PostgreSQL)
   #   SQLSERVER -> MS SQL Server (tech preview)
+  #   AZURESQL  -> Azure SQL Server (Azure-hosed DB)
   db:
     index: docs
-    type: EDB
+    type: AZURESQL
   # Add for model ID
   model:
       modelId: ibm-granite/granite-3.1-8b-instruct
