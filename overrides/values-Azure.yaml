@@ -1,6 +1,15 @@
 clusterGroup:
   namespaces:
     - azure-resources
+    - cert-manager-operator:
+        operatorGroup: true
+        targetNamespaces: []
+
+  subscriptions:
+    cert-manager:
+      name: cert-manager-operator
+      namespace: cert-manager-operator
+      channel: stable-v1
 
   projects:
     - azure-resources
@@ -8,6 +17,6 @@ clusterGroup:
   applications:
     azure-resources:
       name: azure-resources
-      namespace: azure-service-operator
+      namespace: azure-resources
       project: azure-resources
       path: charts/all/azure-resources
