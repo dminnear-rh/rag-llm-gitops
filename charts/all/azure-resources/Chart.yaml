@@ -4,9 +4,3 @@ description: ASO v2 and azure sql server deployment
 type: application
 version: 0.1.0
 appVersion: 0.1.0
-
-dependencies:
-  - name: azure-service-operator
-    version: 2.13.0
-    repository: https://github.com/Azure/azure-service-operator
-    condition: asoChart.install
