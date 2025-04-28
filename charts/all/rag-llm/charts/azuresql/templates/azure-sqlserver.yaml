@@ -1,0 +1,10 @@
+{{- if eq .Values.global.db.type "AZURESQL" }}
+apiVersion: azure.microsoft.com/v1beta1
+kind: AzureSqlServer
+metadata:
+  name: azure-sqlserver
+  namespace: openshift-operators
+spec:
+  location: {{ .Values.azuresql.location }}
+  resourceGroup: {{ .Values.azuresql.resourceGroup }}
+{{- end }}
