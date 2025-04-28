@@ -1,6 +1,13 @@
 clusterGroup:
-  subscriptions:
-    aso:
-      name: azure-service-operator
-      channel: stable
-      source: community-operators
+  namespaces:
+    azure-resources
+
+  project:
+    azure-resources
+
+  applications:
+    azure-resources:
+      name: azure-resources
+      namespace: azure-service-operator
+      project: azure-resources
+      path: charts/all/azure-resources
