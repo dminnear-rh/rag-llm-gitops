@@ -1,9 +1,9 @@
 clusterGroup:
   namespaces:
-    azure-resources
+    - azure-resources
 
-  project:
-    azure-resources
+  projects:
+    - azure-resources
 
   applications:
     azure-resources:
