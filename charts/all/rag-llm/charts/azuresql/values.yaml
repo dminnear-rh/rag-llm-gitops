@@ -1,2 +1,3 @@
-location: eastus
-resourceGroup: openenv-kmbwx
+azuresql:
+  location: eastus
+  resourceGroup: openenv-kmbwx
