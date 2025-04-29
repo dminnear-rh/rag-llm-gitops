@@ -161,7 +161,7 @@ route:
 populateDbJob:
   ## Job image
   image:
-    repository: quay.io/dminnear/vector-embedder
+    repository: quay.io/hybridcloudpatterns/vector-embedder
     tag: latest
     pullPolicy: Always
 

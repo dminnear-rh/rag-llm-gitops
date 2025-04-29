@@ -1,9 +1,10 @@
-# Default values for mssql-latest.
+# Default values for mssql.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 secretStore:
   name: vault-backend
   kind: ClusterSecretStore
+  mssqlSecretKey: secret/data/hub/mssql
 
 replicas: 1
 
@@ -51,3 +52,6 @@ pvc:
  tempsize: 2Gi
  mssqldataaccessMode: ReadWriteOnce
  mssqldbsize: 2Gi
+
+driver: "ODBC Driver 18 for SQL Server"
+databaseName: embeddings

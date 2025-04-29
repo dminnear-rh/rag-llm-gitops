@@ -1,6 +1,0 @@
-apiVersion: v2
-name: azure-resources
-description: ASO v2 and azure sql server deployment
-type: application
-version: 0.1.0
-appVersion: 0.1.0

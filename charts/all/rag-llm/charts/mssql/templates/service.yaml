@@ -1,10 +1,10 @@
-{{- if eq .Values.global.db.type "SQLSERVER" }}
+{{- if eq .Values.global.db.type "MSSQL" }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "mssql-latest.fullname" . }}
+  name: {{ include "mssql.fullname" . }}
   labels:
-    {{- include "mssql-latest.labels" . | nindent 4 }}
+    {{- include "mssql.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,5 +12,5 @@ spec:
       targetPort: {{ .Values.service.port }}
       protocol: TCP
   selector:
-    {{- include "mssql-latest.selectorLabels" . | nindent 4 }}
+    {{- include "mssql.selectorLabels" . | nindent 4 }}
 {{- end }}

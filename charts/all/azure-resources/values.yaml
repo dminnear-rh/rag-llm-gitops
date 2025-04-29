@@ -1,9 +1,0 @@
-asoChart:
-  install: true
-
-crdPattern: "*"
-
-secretStore:
-  name: vault-backend
-  kind: ClusterSecretStore
-  asoKey: secret/data/hub/aso

@@ -8,11 +8,10 @@ global:
   # Possible values for RAG vector DB db.type:
   #   REDIS     -> Redis (RediSearch)
   #   EDB       -> PGVector (PostgreSQL)
-  #   SQLSERVER -> MS SQL Server (tech preview)
-  #   AZURESQL  -> Azure SQL Server (Azure-hosed DB)
+  #   MSSQL -> MS SQL Server (tech preview)
   db:
     index: docs
-    type: AZURESQL
+    type: MSSQL
   # Add for model ID
   model:
       modelId: ibm-granite/granite-3.1-8b-instruct

@@ -1,15 +1,15 @@
-{{- if eq .Values.global.db.type "SQLSERVER" }}
+{{- if eq .Values.global.db.type "MSSQL" }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "mssql-latest.fullname" . }}
+  name: {{ include "mssql.fullname" . }}
   labels:
-    {{- include "mssql-latest.labels" . | nindent 4 }}
+    {{- include "mssql.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicas}}
   selector:
     matchLabels:
-      {{- include "mssql-latest.selectorLabels" . | nindent 6 }}
+      {{- include "mssql.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -17,7 +17,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "mssql-latest.selectorLabels" . | nindent 8 }}
+        {{- include "mssql.selectorLabels" . | nindent 8 }}
     spec:
       hostname: {{ .Values.hostname}}
       securityContext:
@@ -47,7 +47,7 @@ spec:
              valueFrom:
               secretKeyRef:
                name: mssql-secret
-               key: {{  template "mssql.sapassword" . }}
+               key: SA_PASSWORD
           volumeMounts:
            - name: mssqldb
              mountPath: /var/opt/mssql

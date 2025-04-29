@@ -1,4 +1,4 @@
-{{- if eq .Values.global.db.type "SQLSERVER" }}
+{{- if eq .Values.global.db.type "MSSQL" }}
 kind: ConfigMap
 apiVersion: v1
 metadata:
