@@ -37,7 +37,7 @@ spec:
             - name: HUGGINGFACE_HUB_CACHE
               value: /tmp/.cache
             - name: CONFIG_FILE
-              value: /app-root/config/config.yaml
+              value: /app/config/config.yaml
             - name: APP_TITLE
               value: Talk with your documentation
           {{- if eq .Values.global.db.type "REDIS" }}
