@@ -19,10 +19,6 @@ spec:
         name: vLLM
       name: ''
       resources:
-        limits:
-          cpu: '8'
-          memory: 10Gi
-          nvidia.com/gpu: '1'
         requests:
           cpu: '2'
           memory: 8Gi
