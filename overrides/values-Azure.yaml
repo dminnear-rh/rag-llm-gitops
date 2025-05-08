@@ -1,0 +1,2 @@
+inferenceService:
+  numGpus: 4
