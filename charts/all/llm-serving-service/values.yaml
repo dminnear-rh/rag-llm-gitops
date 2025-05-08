@@ -1,2 +1,5 @@
 hfmodel:
   key: secret/data/hub/hfmodel
+
+inferenceService:
+  numGpus: 1

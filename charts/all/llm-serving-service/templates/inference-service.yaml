@@ -20,11 +20,11 @@ spec:
       name: ''
       resources:
         limits:
-          nvidia.com/gpu: '4'
+          nvidia.com/gpu: {{ .Values.inferenceService.numGpus | quote }}
         requests:
           cpu: '2'
           memory: 8Gi
-          nvidia.com/gpu: '1'
+          nvidia.com/gpu: {{ .Values.inferenceService.numGpus | quote }}
       runtime: ibm-granite-instruct
     restartPolicy: OnFailure
     tolerations:
