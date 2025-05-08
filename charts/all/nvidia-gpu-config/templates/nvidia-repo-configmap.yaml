@@ -5,6 +5,6 @@ metadata:
   name: nvidia-driver-repo-config
   namespace: nvidia-gpu-operator
 data:
-  repository: "nvcr.io/nvidia"
+  repo: "nvcr.io/nvidia"
   image: "driver"
 {{- end }}
