@@ -1,0 +1,10 @@
+{{- if .Values.nvidia.driver.version }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nvidia-driver-repo-config
+  namespace: nvidia-gpu-operator
+data:
+  repository: "nvcr.io/nvidia"
+  image: "driver"
+{{- end }}
