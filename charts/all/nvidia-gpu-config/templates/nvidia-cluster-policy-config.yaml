@@ -24,6 +24,7 @@ spec:
     serviceMonitor:
       enabled: true
   driver:
+    version: {{ .Values.nvidia.driver.version }}
     certConfig:
       name: ''
     enabled: true
