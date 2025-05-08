@@ -27,7 +27,7 @@ spec:
   {{- if .Values.nvidia.driver.version }}
     version: {{ .Values.nvidia.driver.version }}
     repoConfig:
-      configmMapName: nvidia-driver-repo-config
+      configMapName: nvidia-driver-repo-config
   {{- end }}
     certConfig:
       name: ''
