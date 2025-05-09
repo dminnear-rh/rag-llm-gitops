@@ -6,12 +6,13 @@ global:
     syncPolicy: Automatic
     installPlanApproval: Automatic
   # Possible values for RAG vector DB db.type:
-  #   REDIS     -> Redis (RediSearch)
-  #   EDB       -> PGVector (PostgreSQL)
-  #   MSSQL -> MS SQL Server (tech preview)
+  #   REDIS     -> Redis (Local chart deploy)
+  #   EDB       -> PGVector (Local chart deploy)
+  #   MSSQL -> MS SQL Server (Local chart deploy)
+  #   AZURESQL -> Azure SQL (Pre-existing in Azure)
   db:
     index: docs
-    type: MSSQL
+    type: AZURESQL
   # Add for model ID
   model:
       modelId: ibm-granite/granite-3.1-8b-instruct

@@ -99,6 +99,17 @@ spec:
         - name: MSSQL_TABLE
           value: {{ .Values.global.db.index }}
       {{- end }}
+      {{- if eq .Values.global.db.type "AZURESQL" }}
+        - name: DB_TYPE
+          value: MSSQL
+        - name: MSSQL_CONNECTION_STRING
+          valueFrom:
+            secretKeyRef:
+              name: azuresql-secret
+              key: CONNECTION_STRING
+        - name: MSSQL_TABLE
+          value: {{ .Values.global.db.index }}
+      {{- end }}
         {{- if .Values.populateDbJob.command }}
         command: {{ .Values.populateDbJob.command }}
         {{- end }}
