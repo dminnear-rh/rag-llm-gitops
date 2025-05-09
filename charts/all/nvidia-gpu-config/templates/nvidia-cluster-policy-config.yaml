@@ -24,11 +24,6 @@ spec:
     serviceMonitor:
       enabled: true
   driver:
-  {{- if .Values.nvidia.driver.version }}
-    version: {{ .Values.nvidia.driver.version }}
-    repository: nvcr.io/nvidia
-    image: driver
-  {{- end }}
     certConfig:
       name: ''
     enabled: true
