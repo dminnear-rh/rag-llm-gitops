@@ -16,15 +16,19 @@ spec:
     prometheus.io/port: '8080'
   containers:
     - args:
-        - '--port=8080'
-        - '--model=/cache/models'
-        - '--distributed-executor-backend=mp'
-        - '--served-model-name=ibm-granite-instruct'
-        - '--max-model-len=4096'
-        - '--dtype=half'
-        - '--gpu-memory-utilization'
-        - '0.98'
-        - '--enforce-eager'
+        - "--port=8080"
+        - "--model=/cache/models"
+        - "--distributed-executor-backend=mp"
+        - "--served-model-name=mistral-7b-instruct"
+        - "--max-model-len=4096"
+        {{- if eq .Values.global.clusterPlatform "Azure" }}
+        - "--quantization=awq"
+        {{- else }}
+        - "--dtype=half"
+        {{- end }}
+        - "--gpu-memory-utilization"
+        - "0.98"
+        - "--enforce-eager"
       command:
         - python
         - '-m'
