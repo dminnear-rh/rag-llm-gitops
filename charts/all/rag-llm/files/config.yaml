@@ -2,7 +2,7 @@ llm_providers:
   - name: "OpenShift AI (vLLM)"
     enabled: True
     models:
-      - name: ibm-granite-instruct
+      - name: {{ ternary "mistral-7b-instruct" "ibm-granite-instruct" (eq .Values.global.clusterPlatform "Azure") }}
         weight: 1
         enabled: True
         url: https://ibm-granite-instruct-{{ .Values.llmui.namespace }}.{{ coalesce .Values.global.localClusterDomain .Values.global.hubClusterDomain }}/v1
