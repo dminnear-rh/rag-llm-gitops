@@ -13,7 +13,7 @@ global:
   #   AZURESQL -> Azure SQL (Pre-existing in Azure)
   db:
     index: docs
-    type: EDB
+    type: REDIS
   # Models used by the inference services (should be a HuggingFace model ID)
   model:
     vllm: ibm-granite/granite-3.3-8b-instruct
