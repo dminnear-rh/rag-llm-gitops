@@ -1,6 +1,6 @@
 global:
   db:
-    type: MSSQL
+    type: AZURESQL
   model:
     vllm: solidrust/Mistral-7B-Instruct-v0.3-AWQ
     embedding: sentence-transformers/distiluse-base-multilingual-cased
@@ -15,3 +15,23 @@ vllmServingRuntime:
     - "--gpu-memory-utilization"
     - "0.98"
     - "--enforce-eager"
+
+populateDbJob:
+  repoSources:
+    - repo: https://github.com/RHEcosystemAppEng/llm-on-openshift.git
+      globs:
+        - examples/notebooks/langchain/rhods-doc/*.pdf
+  webSources:
+    - https://ai-on-openshift.io/getting-started/openshift/
+    - https://ai-on-openshift.io/getting-started/opendatahub/
+    - https://ai-on-openshift.io/getting-started/openshift-ai/
+    - https://ai-on-openshift.io/odh-rhoai/configuration/
+    - https://ai-on-openshift.io/odh-rhoai/custom-notebooks/
+    - https://ai-on-openshift.io/odh-rhoai/nvidia-gpus/
+    - https://ai-on-openshift.io/odh-rhoai/custom-runtime-triton/
+    - https://ai-on-openshift.io/odh-rhoai/openshift-group-management/
+    - https://ai-on-openshift.io/tools-and-applications/minio/minio/
+  chunking:
+    size: 1024
+    overlap: 40
+  embeddingModel: sentence-transformers/all-mpnet-base-v2
