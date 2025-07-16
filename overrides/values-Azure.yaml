@@ -34,4 +34,3 @@ populateDbJob:
   chunking:
     size: 1024
     overlap: 40
-  embeddingModel: sentence-transformers/all-mpnet-base-v2
