@@ -19,11 +19,11 @@ requirements:
       platform:
         aws:
           replicas: 3
-          type: m5.2xlarge
+          type: m5.4xlarge
     controlPlane:
       platform:
         aws:
-          replicas: 1
+          replicas: 3
           type: m5.2xlarge
 
 # Loosely defined extra features like hypershift support, non-openshift
