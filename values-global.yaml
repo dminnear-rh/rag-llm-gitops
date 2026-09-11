@@ -24,7 +24,7 @@ global:
   storageClass: gp3-csi
 
 main:
-  variant: ci
+  variant: hub
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: 0.9.*
