@@ -1,13 +1,33 @@
+import os
+
 import pytest
 from ocp_resources.machine_set import MachineSet
 from ocp_resources.node import Node
 from ocp_resources.pod import Pod
 from ocp_resources.resource import Resource
 from ocp_resources.route import Route
+from playwright.sync_api import expect, sync_playwright
 from validatedpatterns_tests.interop import (
     components,
     subscription,
 )
+
+
+def _route_url(openshift_dyn_client, namespace, name):
+    routes = [
+        route
+        for route in Route.get(
+            dyn_client=openshift_dyn_client, namespace=namespace, name=name
+        )
+    ]
+
+    assert (
+        len(routes) == 1
+    ), f"Expected to find the route '{name}' in the namespace '{namespace}'"
+
+    spec = routes[0].instance.spec
+    scheme = "https" if getattr(spec, "tls", None) else "http"
+    return f"{scheme}://{spec.host}"
 
 
 @pytest.mark.parametrize(
@@ -221,3 +241,74 @@ def test_gpu_node_role_labels_pods(openshift_dyn_client):
     assert (
         actual_count == expected_count
     ), f"Expected to find {expected_count} Nvidia pods on Node '{gpu_node_name}' but actually found {actual_count}"
+
+
+@pytest.mark.parametrize(
+    "openshift_dyn_client",
+    ["VP_HUBCONFIG"],
+    indirect=True,
+)
+def test_ragllm_ui(openshift_dyn_client):
+    rag_ui_url = _route_url(openshift_dyn_client, "rag-llm", "llm-ui")
+    grafana_url = _route_url(
+        openshift_dyn_client, "llm-monitoring", "ai-llm-grafana-route"
+    )
+
+    results_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".results")
+    os.makedirs(results_dir, exist_ok=True)
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_context(ignore_https_errors=True)
+        context.set_default_timeout(120_000)
+        page = context.new_page()
+        try:
+            # Generate a proposal in the RAG-LLM demo UI
+            page.goto(rag_ui_url)
+            page.get_by_role("textbox", name="Customer Enter the customer").fill(
+                "validated-patterns-qe"
+            )
+            page.get_by_role("textbox", name="Product Enter the Red Hat").fill(
+                "RedHat OpenShift AI"
+            )
+            page.get_by_role("button", name="Generate").click()
+
+            # Wait for generation to complete, then submit a rating
+            rating = page.get_by_role("radio", name="3")
+            expect(rating).to_be_visible(timeout=180_000)
+            rating.check()
+
+            # Add a provider on the Configuration tab
+            page.get_by_role("tab", name="Configuration").click()
+            page.get_by_role("button", name="Add Provider").click()
+            page.get_by_role("listbox", name="Providers").click()
+            page.get_by_role("option", name="OpenAI").click()
+            page.get_by_role("textbox", name="Model Enter the model name").fill(
+                "gpt-4o-mini"
+            )
+            page.get_by_role("textbox", name="URL Enter the URL").fill(
+                "https://api.openai.com/v1/chat/completions"
+            )
+            page.get_by_test_id("password").fill("12121212")
+            page.get_by_role("button", name="Add", exact=True).click()
+
+            toast_close = page.get_by_test_id("toast-close")
+            expect(toast_close).to_be_visible()
+            toast_close.click()
+            page.screenshot(path=os.path.join(results_dir, "ragllm-add-provider.png"))
+
+            # Check the Grafana LLM ratings dashboard
+            gpage = context.new_page()
+            gpage.goto(grafana_url)
+            gpage.get_by_role("link", name="Dashboards").click()
+            gpage.get_by_role("link", name="llm-monitoring").click()
+
+            feedback = gpage.get_by_role("link", name="MODEL FEEDBACK/RATING")
+            expect(feedback).to_be_visible()
+            feedback.click()
+            gpage.screenshot(
+                path=os.path.join(results_dir, "ragllm-grafana-dashboard.png")
+            )
+        finally:
+            context.close()
+            browser.close()

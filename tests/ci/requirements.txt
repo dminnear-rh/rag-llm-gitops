@@ -11,5 +11,6 @@ gcloud
 humanize
 pytz
 pytest
+playwright
 junitparser
 vp-qe-test-common @ git+https://github.com/validatedpatterns/vp-qe-test-common.git@v1
