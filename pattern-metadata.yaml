@@ -12,14 +12,14 @@ docs_url: https://validatedpatterns.io/patterns/rag-llm-gitops/
 ci_url: https://validatedpatterns.io/ci/?pattern=ragllm
 # can be sandbox, tested or maintained
 tier: tested
-owners: day0hero, sauagarwa
+owners: dminnear-rh
 requirements:
   hub: # Main cluster
     compute:
       platform:
         aws:
           replicas: 3
-          type: m5.4xlarge
+          type: m5.2xlarge
         azure:
           replicas: 3
           type: Standard_D8s_v4
@@ -27,7 +27,7 @@ requirements:
       platform:
         aws:
           replicas: 3
-          type: m5.2xlarge
+          type: m5.xlarge
         azure:
           replicas: 3
           type: Standard_D4s_v4
