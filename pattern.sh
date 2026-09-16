@@ -132,7 +132,7 @@ podman run -it --rm --pull=newer \
     "${PKI_HOST_MOUNT_ARGS[@]}" \
     -v "$(pwd -P)":"$(pwd -P)" \
     -v "${HOME}":"${HOME}" \
-    -v "${HOME}":/pattern-home \
+    -v "${HOME}/.ansible":/pattern-home/.ansible \
     "${PODMAN_ARGS[@]}" \
     "${EXTRA_ARGS_ARRAY[@]}" \
     -w "$(pwd -P)" \
